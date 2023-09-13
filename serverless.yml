@@ -26,10 +26,10 @@ resources:
       Properties:
         TableName: userTable
         AttributeDefinitions:
-          - AttributeName: email
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          - AttributeName: email
+          - AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -44,8 +44,14 @@ functions:
           method: get
 
   findAllUser:
-    handler: src/user/findAll.findAll
+    handler: src/user/user.findAll
     events:
       - httpApi:
           path: /user
           method: get
+  saveUser:
+    handler: src/user/user.create
+    events:
+      - httpApi:
+          path: /user
+          method: post
